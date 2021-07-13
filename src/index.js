@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { actionDecrement, actionIncrement, actionReset } from './actions/index.js';
+import { store } from './Store';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () => {
+  return (
+    <div>
+      <h1>Usando Redux</h1>
+      {store.getState()}
+      <br></br>
+      <button onClick={() => store.dispatch(actionDecrement)}>-</button>
+      <button onClick={() => store.dispatch(actionIncrement)}>+</button>
+      <button onClick={() => store.dispatch(actionReset)}>reset</button>
+    </div>
+  )
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const rendeApp = () => {
+  ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+  );
+}
+
+rendeApp()
+store.subscribe(rendeApp)
